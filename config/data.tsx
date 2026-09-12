@@ -9,13 +9,18 @@ import Button from '../components/common/Button';
 
 export type MenuItem = Required<MenuProps>['items'][number];
 
+export interface CabangOption {
+  value: string;
+  label: string;
+}
+
 export const getNavbarData = (isAuthenticated: boolean): MenuItem[] => [
   {
     label: 'Dashboard',
     key: 'dashboard',
     children: [
       {
-        label: <Link href="/" prefetch={false}>Dashboard</Link>,
+        label: <Link href="/dashboard" prefetch={false}>Dashboard</Link>,
         key: 'dashboard',
       },
       ...(isAuthenticated
@@ -139,3 +144,5 @@ export const features = [
     icon: <Icon icon="mdi:laptop-chromebook" />,
   },
 ];
+
+export const DEFAULT_CABANG_OPTIONS: CabangOption[] = [{ value: "semua", label: "Semua Cabang" }];
