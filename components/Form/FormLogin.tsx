@@ -22,13 +22,16 @@ export const FormLogin = () => {
   const handleFinish = async (values: userLoginAuth) => {
     try {
       setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 1));
+      setErrorMessage(null);
+      await new Promise(resolve =>
+        requestAnimationFrame(() => setTimeout(resolve, 0))
+      );
 
       const userResponse = await UserAuthService.loginEmail(values);
       document.cookie = `token=${userResponse.jwt.token}; path=/; secure; samesite=strict`;
       dispatch(login(userResponse));
 
-      router.push("/home");
+      router.push("/dashboard");
     } catch (err) {
       console.error(err);
       setLoading(false);
@@ -37,6 +40,8 @@ export const FormLogin = () => {
       } else {
         setErrorMessage("Terjadi kesalahan. Coba lagi nanti.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 

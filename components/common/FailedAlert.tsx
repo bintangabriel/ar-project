@@ -4,7 +4,7 @@ const AlertMessage = ({ errorMessage }: { errorMessage: string | null }) => {
 
 
     return (
-        <Alert message={errorMessage} type="error" closable style={{ color: "red", margin: 5 }}/>
+        <Alert title={errorMessage} type="error" closable />
     )
 }
 

@@ -7,17 +7,14 @@ export type forgotPasswordAuth = { email: string }
 export type resetPasswordAuth = { token: string, newPassword: string, email: string }
 
 export const UserAuthService = {
-    loginEmail: (data: userLoginAuth) => fetchClient(`/auth/login/email`, {
+    loginEmail: (data: userLoginAuth) => fetchClient(`/login`, {
         method: "POST",
         body: JSON.stringify({
             login: {
                 grantType: "password",
                 email: encryptAES(data.email),
                 password: encryptAES(data.password),
-            },
-            recaptcha: {
-                token: "03AFcWeA6Jlc8qA8lQ..."
-            },
+            }
         })
     })
 };
