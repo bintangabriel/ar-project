@@ -107,16 +107,16 @@ export const FormLogin = () => {
             Masuk
           </Button>
 
-          <div className="flex items-center justify-center text-gray-400 text-sm">
+          {/* <div className="flex items-center justify-center text-gray-400 text-sm">
             <Divider plain className="text-gray-400">atau</Divider>
-          </div>
+          </div> */}
 
         </div>
-        <div className="text-center mt-6 text-sm text-gray-600">
+        {/* <div className="text-center mt-6 text-sm text-gray-600">
           <a href="/auth/forgot-password" className="text-orange-500 font-semibold hover:underline">
             Lupa Password?
           </a>
-        </div>
+        </div> */}
         {/* <div className="text-center text-sm text-gray-600">
           Belum punya akun?{" "}
           <a href="/register" className="text-orange-500 font-semibold hover:underline">
