@@ -1,6 +1,7 @@
 'use client';
 
 import {useCallback, useId, useRef, useState} from 'react';
+import {API_CONFIG} from '../../config/Constant';
 
 /* -------------------------------------------------------------------------- */
 /* Config                                                                     */
@@ -15,8 +16,6 @@ const ALLOWED_MIME_TYPES = [
   'application/vnd.ms-excel', // .xls (and .csv on some Windows browsers)
   'text/csv'
 ];
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 const FILE_TYPES = [
   {value: 'sk', label: 'SK', needsRegion: false},
@@ -138,7 +137,7 @@ export default function UploadFileForm() {
 
     // XHR instead of fetch so we can show upload progress
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `${API_URL}/import`);
+    xhr.open('POST', `${API_CONFIG.BASE_URL}/excel`);
 
     xhr.upload.onprogress = ev => {
       if (ev.lengthComputable) {
