@@ -39,10 +39,10 @@ export const getNavbarData = (isAuthenticated: boolean): MenuItem[] => [
           key: 'pembelian',
           children: [
             {
-              label: <Link href="/input-data" prefetch={false}>Input Data</Link>,
-              key: 'input-data',
+              label: <Link href="/upload-file" prefetch={false}>Upload File</Link>,
+              key: 'upload-file',
             },
-            {
+            { 
               label: <Link href="/riwayat" prefetch={false}>Riwayat</Link>,
               key: 'riwayat',
             },

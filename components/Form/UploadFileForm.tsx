@@ -2,6 +2,7 @@
 
 import {useCallback, useId, useRef, useState} from 'react';
 import {API_CONFIG} from '../../config/Constant';
+import { useUserData } from '../../redux/store';
 
 /* -------------------------------------------------------------------------- */
 /* Config                                                                     */
@@ -79,11 +80,30 @@ const controlClass =
 
 const helpClass = 'mt-1 block text-[0.8125rem] text-slate-600 dark:text-slate-400';
 
+const decodeJwtHeader = (token: string) => {
+  const [header] = token.split('.');
+
+  const base64 = header
+    .replace(/-/g, '+')
+    .replace(/_/g, '/');
+
+  const json = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(char => `%${('00' + char.charCodeAt(0).toString(16)).slice(-2)}`)
+      .join('')
+  );
+
+  return JSON.parse(json);
+};
+
 /* -------------------------------------------------------------------------- */
 /* Component                                                                  */
 /* -------------------------------------------------------------------------- */
 
 export default function UploadFileForm() {
+
+  const user = useUserData();
   const typeId = useId();
   const regionInputId = useId();
   const fileInputId = useId();
@@ -138,6 +158,18 @@ export default function UploadFileForm() {
     // XHR instead of fetch so we can show upload progress
     const xhr = new XMLHttpRequest();
     xhr.open('POST', `${API_CONFIG.BASE_URL}/excel`);
+
+      // Get token from Redux
+    const token = user?.jwt?.token;
+
+    if (token) {
+      console.log(decodeJwtHeader(token));
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    }
+
+    // Other headers required by your backend
+    xhr.setRequestHeader('Accept', 'application/json');
+
 
     xhr.upload.onprogress = ev => {
       if (ev.lengthComputable) {
