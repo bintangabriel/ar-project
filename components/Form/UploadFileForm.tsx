@@ -114,10 +114,11 @@ export default function UploadFileForm() {
   const [file, setFile] = useState<File | null>(null);
   const [dragging, setDragging] = useState(false);
   const [status, setStatus] = useState<Status>({kind: 'idle'});
+  const [selectedDate, setSelectedDate] = useState('');
 
   const selected = FILE_TYPES.find(t => t.value === fileType);
   const uploading = status.kind === 'uploading';
-  const canSubmit = !!file && !!fileType && !uploading;
+  const canSubmit = !!file && !!fileType && !uploading && (fileType !== 'aging_daily' || !!selectedDate);
 
   const clearFileInput = () => {
     if (inputRef.current) inputRef.current.value = '';
@@ -141,6 +142,7 @@ export default function UploadFileForm() {
     setFile(null);
     setFileType('');
     setRegionId('');
+    setSelectedDate('');
     clearFileInput();
   };
 
@@ -152,6 +154,9 @@ export default function UploadFileForm() {
     body.append('type', fileType);
     if (selected?.needsRegion && regionId.trim()) {
       body.append('id_mst_wilayah', regionId.trim());
+    }
+    if (fileType === 'aging_daily') {
+      body.append('date', selectedDate);
     }
     body.append('file', file); // field name must match upload.single('file') on the server
 
@@ -217,6 +222,10 @@ export default function UploadFileForm() {
         Upload an Excel or CSV file. The first worksheet is imported and its column headers must match
         the table fields.
       </p>
+      <p className="-mt-2 max-w-[60ch] text-[0.9375rem] text-slate-600 dark:text-yellow-100">
+        Notes: If you are uploading file that includes DATE data, please ensure the date format is DD/MM/YYYY.
+      </p>
+
 
       {/* File type */}
       <div className="flex flex-col gap-1.5">
@@ -262,6 +271,34 @@ export default function UploadFileForm() {
           </span>
         </div>
       )}
+
+      
+    {/* Import date — only for Aging daily */}
+    {fileType === 'aging_daily' && (
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="import-date"
+          className="text-[0.9375rem] font-semibold"
+        >
+          Import Date
+        </label>
+
+        <input
+          id="import-date"
+          type="date"
+          className={controlClass}
+          value={selectedDate}
+          onChange={e => setSelectedDate(e.target.value)}
+          disabled={uploading}
+          required
+        />
+
+        <span className={helpClass}>
+          All imported rows will use this date.
+        </span>
+      </div>
+    )}
+
 
       {/* Drop zone */}
       <div className="flex flex-col gap-1.5">
