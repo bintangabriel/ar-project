@@ -27,7 +27,13 @@ const Navbar: React.FC = () => {
 
             {/* Logo */}
             <div className="text-xl font-bold text-orange-500">
-                <a href="/home">SiAR</a>
+                <img
+                              src="/img/arise.jpeg"
+                              alt="AR Illustration"
+                              width={100}
+                              height={100}
+                              className="object-contain drop-shadow-xl"
+                            />
             </div>
 
             {/* Desktop Menu */}

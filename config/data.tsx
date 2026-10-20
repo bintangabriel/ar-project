@@ -35,18 +35,8 @@ export const getNavbarData = (isAuthenticated: boolean): MenuItem[] => [
     isAuthenticated
       ? [
         {
-          label: 'Pembelian',
-          key: 'pembelian',
-          children: [
-            {
-              label: <Link href="/upload-file" prefetch={false}>Upload File</Link>,
-              key: 'upload-file',
-            },
-            { 
-              label: <Link href="/riwayat" prefetch={false}>Riwayat</Link>,
-              key: 'riwayat',
-            },
-          ],
+          label:  <Link href="/upload-file" prefetch={false}>Upload File</Link>,
+          key: 'upload-file'
         }
       ]
       : []

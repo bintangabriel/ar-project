@@ -4,6 +4,12 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
 
+const highlights = [
+  'Pengelolaan data AR yang terpusat',
+  'Monitoring progres yang jelas dan terukur',
+  'Akses aman untuk setiap pengguna',
+];
+
 // ✅ Use this layout to wrap login & register pages
 export default function AuthLayout({
   children,
@@ -11,63 +17,75 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-100 via-yellow-50 to-white relative overflow-hidden p-16">
-      {/* Floating glow background */}
-      <motion.div
-        className="absolute -top-20 -left-20 w-96 h-96 bg-orange-300/30 rounded-full blur-3xl"
-        animate={{ y: [0, 20, 0] }}
-        transition={{ duration: 10, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 w-[28rem] h-[28rem] bg-yellow-200/30 rounded-full blur-3xl"
-        animate={{ y: [0, -20, 0] }}
-        transition={{ duration: 12, repeat: Infinity }}
-      />
-
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#EEF3F7] to-white p-6 sm:p-10">
       {/* CARD CONTAINER */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 flex flex-col sm:flex-row w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-orange-100"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="flex flex-col md:flex-row w-full max-w-5xl bg-white rounded-2xl shadow-xl shadow-slate-900/10 overflow-hidden border border-slate-200"
       >
-        {/* LEFT SIDE — DECORATION */}
-        <div className="relative hidden sm:flex sm:w-2/5 lg:w-1/2 w-full bg-gradient-to-br from-orange-500 via-orange-400 to-yellow-300 text-white flex-col justify-between items-center p-10">
-          {/* Logo & tagline */}
-          <div className="text-center space-y-3">
-            {/* <Image
-              src="/img/prepster-logo.png"
-              alt="Prepster Logo"
-              width={70}
-              height={70}
-              className="mx-auto"
-            /> */}
-            <h1 className="text-4xl font-extrabold italic drop-shadow-md">AR Projects</h1>
-            <p className="text-white/90 leading-relaxed text-sm sm:text-base">
-              AR Management <br />
-              lebih seru dan terarah 🎯
-            </p>
-          </div>
+        {/* LEFT SIDE — BRAND PANEL */}
+        <div className="relative hidden md:flex md:w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-br from-[#0F2D6B] via-[#123577] to-[#1B4A94] text-white p-12">
+          {/* Subtle decorative circles */}
+          <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[#AEC4D4]/10" />
+          <div className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-[#AEC4D4]/10" />
 
-          {/* Illustration */}
-          <div className="w-full flex justify-center mt-8 lg:mt-0">
+          {/* Logo */}
+          <div className="relative inline-flex self-start rounded-xl bg-white p-3 shadow-lg shadow-black/20">
             <Image
-              src="/img/student-study.png"
-              alt="AR Illustration"
-              width={280}
-              height={280}
-              className="object-contain drop-shadow-xl"
+              src="/img/arise.jpeg"
+              alt="ARISE"
+              width={150}
+              height={50}
+              priority
+              className="object-contain"
             />
           </div>
 
+          {/* Headline */}
+          <div className="relative space-y-6">
+            <div className="space-y-3">
+              <h1 className="text-3xl font-semibold tracking-tight leading-tight">
+                Selamat datang di
+                <br />
+                 <span className="text-[#AEC4D4]">ARISE</span><br />
+              </h1>
+              <p className="text-[#D6E2EB] text-sm leading-relaxed max-w-xs">
+                Kelola proyek AR Anda dengan lebih terstruktur, transparan, dan efisien dalam satu platform.
+              </p>
+            </div>
+
+            <ul className="space-y-3">
+              {highlights.map((item) => (
+                <li key={item} className="flex items-center gap-3 text-sm text-white/90">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#AEC4D4]">
+                    <svg
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      stroke="#0F2D6B"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-3 w-3"
+                    >
+                      <path d="M4 10.5l4 4 8-9" />
+                    </svg>
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Footer */}
-          <p className="text-xs text-white/70 mt-6 text-center">
-            © 2026 AR Management — AR Sukses!
+          <p className="relative text-xs text-[#AEC4D4]">
+            © 2026 AR Management. All rights reserved.
           </p>
         </div>
 
         {/* RIGHT SIDE — CONTENT SLOT */}
-        <main className="flex justify-center items-center w-full lg:w-1/2 bg-white p-6">
+        <main className="flex justify-center items-center w-full md:w-1/2 bg-white px-6 py-12 sm:px-10">
           {children}
         </main>
       </motion.div>
