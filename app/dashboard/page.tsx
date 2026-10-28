@@ -1,61 +1,69 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import DashboardOverviewHeader from "../../components/DashboardOverviewHeader";
-import BalanceAgingCards, { BalanceMetric } from "../../components/BalanceAgingCard";
+import BalanceAgingCards from "../../components/BalanceAgingCard";
+import {
+  fetchDashboardOverview,
+  type DashboardFilters,
+  type DashboardOverview,
+} from "../../services/dashboard";
 
-const sampleMetrics: BalanceMetric[] = [
-  {
-    key: "balance-60",
-    title: "BALANCE > 60",
-    icon: "calendar",
-    color: "green",
-    amountTM: 20_362_265_430,
-    amountLM: 17_641_705_930,
-    pctToOsaTM: 1.94,
-    pctToOsaLM: 1.68,
-  },
-  {
-    key: "balance-90",
-    title: "BALANCE > 90",
-    icon: "calendar",
-    color: "orange",
-    amountTM: 7_560_463_880,
-    amountLM: 6_079_174_050,
-    pctToOsaTM: 0.72,
-    pctToOsaLM: 0.58,
-  },
-  {
-    key: "balance-120",
-    title: "BALANCE > 120",
-    icon: "calendar",
-    color: "purple",
-    amountTM: 3_896_336_590,
-    amountLM: 3_060_405_530,
-    pctToOsaTM: 0.37,
-    pctToOsaLM: 0.29,
-  },
-  {
-    key: "powo",
-    title: "POWO",
-    icon: "flag",
-    color: "blue",
-    amountTM: 16_595_841_100,
-    amountLM: 13_899_632_520,
-    pctToOsaTM: 1.58,
-    pctToOsaLM: 1.32,
-  },
-];
+const INITIAL_FILTERS: DashboardFilters = {
+  thisMonth: "2026-10-28",
+  lastMonth: "2026-09-28",
+  cabang: "", // first option of cabangOptions; "" / "all" = no filter
+};
 
-export default function DashboardExamplePage() {
+export default function DashboardPage() {
+  const [filters, setFilters] = useState<DashboardFilters>(INITIAL_FILTERS);
+  const [data, setData] = useState<DashboardOverview | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Loading/error are reset in the event handler, not in the effect,
+  // so the effect only calls setState from async callbacks.
+  const handleApply = (next: DashboardFilters) => {
+    setLoading(true);
+    setError(null);
+    setFilters(next);
+  };
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetchDashboardOverview(filters, controller.signal)
+      .then(setData)
+      .catch((e) => {
+        if (e.name !== "AbortError") setError(e.message);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, [filters]);
+
   return (
     <main className="min-h-screen bg-slate-100 p-6">
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
         <DashboardOverviewHeader
-          osaTotalTM={1_050_030_244_210}
-          osaTotalLM={1_051_943_186_960}
-          onApply={(filters) => console.log("Apply filters:", filters)}
+          initialThisMonth={INITIAL_FILTERS.thisMonth}
+          initialLastMonth={INITIAL_FILTERS.lastMonth}
+          osaTotalTM={data?.osaTotalTM ?? 0}
+          osaTotalLM={data?.osaTotalLM ?? 0}
+          onApply={handleApply}
         />
-        <BalanceAgingCards metrics={sampleMetrics} />
+
+        {error && (
+          <p className="rounded-lg bg-red-50 p-4 text-sm text-red-600">
+            Gagal memuat data: {error}
+          </p>
+        )}
+
+        <div className={loading ? "opacity-60 transition-opacity" : "transition-opacity"}>
+          <BalanceAgingCards metrics={data?.metrics ?? []} />
+        </div>
       </div>
     </main>
   );
