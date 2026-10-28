@@ -16,12 +16,16 @@ export interface DashboardOverviewHeaderProps {
   onApply?: (filters: { thisMonth: string; lastMonth: string; cabang: string }) => void;
 }
 
+
 function formatRupiah(value: number) {
   const formatted = new Intl.NumberFormat("id-ID", {
-    maximumFractionDigits: 0,
-  }).format(Math.abs(value));
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+  }).format(Math.abs(value) / 1_000_000);
+
   return `Rp${formatted}`;
 }
+
 
 // Converts an ISO date (yyyy-mm-dd) to the dd/mm/yyyy shown in the date inputs.
 function toDisplayDate(iso: string) {
@@ -131,7 +135,7 @@ export default function DashboardOverviewHeader({
             <BarChart3 className="h-7 w-7 text-blue-600" />
           </span>
           <div>
-            <p className="text-sm font-semibold text-blue-600">OSA TOTAL</p>
+            <p className="text-sm font-semibold text-blue-600">OSA TOTAL (Million Rp)</p>
             <dl className="mt-2 space-y-1">
               <div className="flex items-center gap-2">
                 <dt className="text-xs font-medium text-slate-400">TM</dt>
@@ -148,7 +152,7 @@ export default function DashboardOverviewHeader({
         <div className="h-16 w-px bg-slate-100" />
 
         <div className="flex-1 pl-8">
-          <p className="text-sm font-medium text-slate-500">TOTAL DIFFERENCE (TM vs LM)</p>
+          <p className="text-sm font-medium text-slate-500">TOTAL DIFFERENCE (Million Rp)</p>
           <p className={`mt-2 text-2xl font-bold ${isDown ? "text-emerald-600" : "text-red-600"}`}>
             {isDown ? "-" : "+"}
             {formatRupiah(diff)}

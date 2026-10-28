@@ -32,7 +32,7 @@ type Status =
   | {kind: 'idle'}
   | {kind: 'uploading'; progress: number}
   | {kind: 'success'; message: string}
-  | {kind: 'error'; message: string};
+  | {kind: 'error'; message: string; missingColumns?: string[]};
 
 /* -------------------------------------------------------------------------- */
 /* Helpers                                                                    */
@@ -183,7 +183,7 @@ export default function UploadFileForm() {
     };
 
     xhr.onload = () => {
-      let payload: {message?: string} = {};
+      let payload: {message?: string; missingColumns?: string[]} = {};
       try {
         payload = JSON.parse(xhr.responseText);
       } catch {
@@ -196,7 +196,8 @@ export default function UploadFileForm() {
       } else {
         setStatus({
           kind: 'error',
-          message: payload.message ?? `Upload failed (HTTP ${xhr.status}).`
+          message: payload.message ?? `Upload failed (HTTP ${xhr.status}).`,
+          missingColumns: payload.missingColumns
         });
       }
     };
@@ -385,12 +386,24 @@ export default function UploadFileForm() {
 
       {/* Messages */}
       {status.kind === 'error' && (
-        <p
+        <div
           role="alert"
           className="rounded-md bg-red-50 px-3 py-2.5 text-[0.9375rem] text-red-800 dark:bg-red-950 dark:text-red-300"
         >
-          {status.message}
-        </p>
+          <p>{status.message}</p>
+          {status.missingColumns && status.missingColumns.length > 0 && (
+            <>
+              <p className="mt-2 font-semibold">Columns not found in your file:</p>
+              <ul className="mt-1 list-disc pl-5">
+                {status.missingColumns.map(c => (
+                  <li key={c}>
+                    <code className="font-mono">{c}</code>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
       )}
       {status.kind === 'success' && (
         <p

@@ -23,6 +23,10 @@ export const getNavbarData = (isAuthenticated: boolean): MenuItem[] => [
         label: <Link href="/dashboard" prefetch={false}>Dashboard</Link>,
         key: 'dashboard',
       },
+      {
+        label: <Link href="/dashboard-peojf" prefetch={false}>Dashboard Peojf</Link>,
+        key: 'dashboard-peojf',
+      },
       ...(isAuthenticated
         ? [{
           label: <Link href="/peojf" prefetch={false}>Rekomendasi PEOJF</Link>,

@@ -32,9 +32,10 @@ const COLOR_STYLES: Record<
 };
 
 function formatRupiah(value: number) {
-  return `Rp${new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(
-    Math.abs(value)
-  )}`;
+  return `Rp ${new Intl.NumberFormat("id-ID", {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+  }).format(Math.abs(value) / 1_000_000)}`;
 }
 
 function formatPct(value: number) {
@@ -63,7 +64,7 @@ function MetricCard({ metric }: { metric: BalanceMetric }) {
       <div className="mt-4 grid grid-cols-[auto_1fr_auto] items-center gap-x-4 gap-y-2 text-sm">
 
         <span />
-        <span className="text-xs font-medium text-slate-400">AMOUNT (Rp)</span>
+        <span className="text-xs font-medium text-slate-400">AMOUNT (million Rp)</span>
         <span className="text-xs font-medium text-slate-400">% to OSA</span>
  
         <div className="col-span-3 h-px bg-slate-100" />
