@@ -85,7 +85,7 @@ function MetricCard({ metric }: { metric: BalanceMetric }) {
         <div className="text-right">
           <p
             className={`flex items-center justify-end gap-1 font-bold ${
-              isIncrease ? "text-red-600" : "text-emerald-600"
+              isIncrease ? "text-red-600" : "text-red-600"
             }`}
           >
             {formatRupiah(amountDiff)}
@@ -97,7 +97,7 @@ function MetricCard({ metric }: { metric: BalanceMetric }) {
         </div>
         <p
           className={`flex items-center gap-1 font-semibold ${
-            pctPointDiff >= 0 ? "text-emerald-600" : "text-red-600"
+            pctPointDiff >= 0 ? "text-red-600" : "text-green-600"
           }`}
         >
           {pctPointDiff >= 0 ? "+" : ""}

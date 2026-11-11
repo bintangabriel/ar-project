@@ -29,7 +29,7 @@ export const getNavbarData = (isAuthenticated: boolean): MenuItem[] => [
       },
       ...(isAuthenticated
         ? [{
-          label: <Link href="/peojf" prefetch={false}>Rekomendasi PEOJF</Link>,
+          label: <Link href="/peojf-recommendation" prefetch={false}>Rekomendasi PEOJF</Link>,
           key: 'peojf-recommendation',
         }]
         : []),
