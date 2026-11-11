@@ -153,13 +153,13 @@ export default function DashboardOverviewHeader({
 
         <div className="flex-1 pl-8">
           <p className="text-sm font-medium text-slate-500">TOTAL DIFFERENCE (Million Rp)</p>
-          <p className={`mt-2 text-2xl font-bold ${isDown ? "text-emerald-600" : "text-red-600"}`}>
+          <p className={`mt-2 text-2xl font-bold ${isDown ? "text-red-600" : "text-emerald-600"}`}>
             {isDown ? "-" : "+"}
             {formatRupiah(diff)}
           </p>
           <span
             className={`mt-2 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              isDown ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-600"
+              isDown ? "bg-red-50 text-red-600" : "bg-emerald-50 text-emerald-600"
             }`}
           >
             {isDown ? "↓" : "↑"} {pctDiff.toFixed(2)}%

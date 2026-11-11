@@ -1,5 +1,5 @@
-  import PeojfDashboard from "@/components/PeojfDashboard";
+import PeojfDashboardContainer from "./PeojfDashboardContainer";
 
   export default function Page() {
-    return <PeojfDashboard />;
+    return <PeojfDashboardContainer />;
   }
