@@ -27,6 +27,10 @@ export const getNavbarData = (isAuthenticated: boolean): MenuItem[] => [
         label: <Link href="/dashboard-peojf" prefetch={false}>Dashboard Peojf</Link>,
         key: 'dashboard-peojf',
       },
+      {
+        label: <Link href="/aging-trend" prefetch={false}>Aging Trend</Link>,
+        key: 'aging-trend',
+      },
       ...(isAuthenticated
         ? [{
           label: <Link href="/peojf-recommendation" prefetch={false}>Rekomendasi PEOJF</Link>,

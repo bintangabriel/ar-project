@@ -77,51 +77,53 @@ export default function RecommendationPage() {
   const labelCls = "flex flex-col gap-1.5 text-[13px] font-semibold";
 
   return (
-    <main className="mx-auto max-w-4xl px-4 pb-16 pt-6">
-      <h1 className="text-2xl font-bold">{TEXT.title}</h1>
-      <p className="mt-1 text-slate-500 dark:text-slate-400">{TEXT.intro}</p>
+    <main className="px-4 pb-16 pt-6">
+      <div className="mx-auto max-w-4xl mt-10">
+        <h1 className="text-2xl font-bold">{TEXT.title}</h1>
+        <p className="mt-1 text-slate-500 dark:text-slate-400">{TEXT.intro}</p>
 
-      <form className="mb-2 mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" onSubmit={onSubmit}>
-        {SELECTS.map(({ key, label }) => (
-          <label key={key} className={labelCls}>
-            <span>{label}</span>
-            <select className={inputCls} value={form[key]} onChange={set(key)} disabled={!options} required>
-              <option value="">Select…</option>
-              {options?.[key].map((v) => <option key={v} value={v}>{v.toUpperCase()}</option>)}
-            </select>
+        <form className="mb-2 mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" onSubmit={onSubmit}>
+          {SELECTS.map(({ key, label }) => (
+            <label key={key} className={labelCls}>
+              <span>{label}</span>
+              <select className={inputCls} value={form[key]} onChange={set(key)} disabled={!options} required>
+                <option value="">Select…</option>
+                {options?.[key].map((v) => <option key={v} value={v}>{v.toUpperCase()}</option>)}
+              </select>
+            </label>
+          ))}
+
+          <label className={labelCls}>
+            <span>RINCIAN SUMBER DANA</span>
+            <input className={inputCls} value={form.rincianSumberDana} onChange={set("rincianSumberDana")} maxLength={300} />
           </label>
-        ))}
 
-        <label className={labelCls}>
-          <span>RINCIAN SUMBER DANA</span>
-          <input className={inputCls} value={form.rincianSumberDana} onChange={set("rincianSumberDana")} maxLength={300} />
-        </label>
+          <label className={`${labelCls} sm:col-span-2 lg:col-span-3`}>
+            <span>ANSUS DETAIL (notes about the customer)</span>
+            <textarea className={inputCls} value={form.ansusDetail} onChange={set("ansusDetail")} rows={4} maxLength={2000} />
+          </label>
 
-        <label className={`${labelCls} sm:col-span-2 lg:col-span-3`}>
-          <span>ANSUS DETAIL (notes about the customer)</span>
-          <textarea className={inputCls} value={form.ansusDetail} onChange={set("ansusDetail")} rows={4} maxLength={2000} />
-        </label>
+          <button
+            type="submit"
+            disabled={!canSubmit}
+            className="justify-self-start rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:col-span-2 lg:col-span-3"
+          >
+            {loading ? TEXT.loading : TEXT.submit}
+          </button>
+        </form>
 
-        <button
-          type="submit"
-          disabled={!canSubmit}
-          className="justify-self-start rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50 sm:col-span-2 lg:col-span-3"
-        >
-          {loading ? TEXT.loading : TEXT.submit}
-        </button>
-      </form>
+        {error && <p role="alert" className="my-3 text-sm text-red-700 dark:text-red-400">{error}</p>}
 
-      {error && <p role="alert" className="my-3 text-sm text-red-700 dark:text-red-400">{error}</p>}
-
-      {result && (
-        <>
-          <div className="mb-3 mt-6 grid gap-4 md:grid-cols-2">
-            <RecommendationResults title={TEXT.payTitle} group={result.data.pay} />
-            <RecommendationResults title={TEXT.crTitle} group={result.data.cr} />
-          </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">{TEXT.note}</p>
-        </>
-      )}
+        {result && (
+          <>
+            <div className="mb-3 mt-6 grid gap-4 md:grid-cols-2">
+              <RecommendationResults title={TEXT.payTitle} group={result.data.pay} />
+              <RecommendationResults title={TEXT.crTitle} group={result.data.cr} />
+            </div>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{TEXT.note}</p>
+          </>
+        )}
+      </div>
     </main>
   );
 }
