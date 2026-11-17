@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Avatar, type MenuProps } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { User } from '../type/user.type';
-import Link from 'next/link';
+import { Avatar, type MenuProps } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { User } from "../type/user.type";
+import Link from "next/link";
 import { Icon } from "@iconify/react";
-import Button from '../components/common/Button';
+import Button from "../components/common/Button";
 
-export type MenuItem = Required<MenuProps>['items'][number];
+export type MenuItem = Required<MenuProps>["items"][number];
 
 export interface CabangOption {
   value: string;
@@ -15,56 +15,73 @@ export interface CabangOption {
 }
 
 export const getNavbarData = (isAuthenticated: boolean): MenuItem[] => [
+  ...(isAuthenticated
+    ? [
   {
-    label: 'Dashboard',
-    key: 'dashboard',
+    label: "Dashboard",
+    key: "dashboard",
     children: [
-      {
-        label: <Link href="/dashboard" prefetch={false}>Dashboard</Link>,
-        key: 'dashboard',
-      },
-      {
-        label: <Link href="/dashboard-peojf" prefetch={false}>Dashboard Peojf</Link>,
-        key: 'dashboard-peojf',
-      },
-      {
-        label: <Link href="/aging-trend" prefetch={false}>Aging Trend</Link>,
-        key: 'aging-trend',
-      },
       ...(isAuthenticated
-        ? [{
-          label: <Link href="/peojf-recommendation" prefetch={false}>Rekomendasi PEOJF</Link>,
-          key: 'peojf-recommendation',
-        }]
+        ? [
+            {
+              label: (
+                <Link href="/dashboard" prefetch={false}>
+                  Dashboard
+                </Link>
+              ),
+              key: "dashboard",
+            },
+            {
+              label: (
+                <Link href="/dashboard-peojf" prefetch={false}>
+                  Dashboard Peojf
+                </Link>
+              ),
+              key: "dashboard-peojf",
+            },
+            {
+              label: (
+                <Link href="/aging-trend" prefetch={false}>
+                  Aging Trend
+                </Link>
+              ),
+              key: "aging-trend",
+            },
+            {
+              label: (
+                <Link href="/peojf-recommendation" prefetch={false}>
+                  Rekomendasi PEOJF
+                </Link>
+              ),
+              key: "peojf-recommendation",
+            },
+          ]
         : []),
     ],
   },
-  ...(
-    isAuthenticated
-      ? [
         {
-          label:  <Link href="/upload-file" prefetch={false}>Upload File</Link>,
-          key: 'upload-file'
-        }
+          label: (
+            <Link href="/upload-file" prefetch={false}>
+              Upload File
+            </Link>
+          ),
+          key: "upload-file",
+        },
       ]
-      : []
-  ),
-  {
-    label: <Link href="/tentang-kami" prefetch={false}>Tentang Kami</Link>,
-    key: 'tentang-kami',
-  },
+    : [])
 ];
 
-export const getProfile = (user?: User['user'] | null, handleLogout?: () => void): MenuItem[] => {
+export const getProfile = (
+  user?: User["user"] | null,
+  handleLogout?: () => void,
+): MenuItem[] => {
   if (!user) {
     return [
       {
-        key: 'login',
+        key: "login",
         label: (
           <Link href="/login" prefetch={false}>
-            <Button type="primary">
-              Login
-            </Button>
+            <Button type="primary">Login</Button>
           </Link>
         ),
       },
@@ -73,35 +90,38 @@ export const getProfile = (user?: User['user'] | null, handleLogout?: () => void
 
   return [
     {
-      key: 'user-dropdown',
+      key: "user-dropdown",
       label: (
         <div className="flex items-center gap-2">
           <Avatar size="small" icon={<UserOutlined />} />
-          <span>{user.name ?? 'Guest'}</span>
+          <span>{user.name ?? "Guest"}</span>
         </div>
       ),
       children: [
         {
-          label: <Link href="/profile" prefetch={false}>Profile</Link>,
-          key: 'profile',
+          label: (
+            <Link href="/profile" prefetch={false}>
+              Profile
+            </Link>
+          ),
+          key: "profile",
         },
         {
           label: <div onClick={handleLogout}>Logout</div>, // ✅ logout handler
-          key: 'logout',
+          key: "logout",
         },
       ],
     },
   ];
 };
 
-
 export const footerSections = [
   {
-    title: 'Products',
+    title: "Products",
     links: [
-      { href: '#', label: 'PEOJF Recommendation' },
-      { href: '#', label: 'Interactive Dashboard' },
-      { href: '#', label: 'Data Input' },
+      { href: "#", label: "PEOJF Recommendation" },
+      { href: "#", label: "Interactive Dashboard" },
+      { href: "#", label: "Data Input" },
     ],
   },
 ];
@@ -143,4 +163,6 @@ export const features = [
   },
 ];
 
-export const DEFAULT_CABANG_OPTIONS: CabangOption[] = [{ value: "semua", label: "Semua Cabang" }];
+export const DEFAULT_CABANG_OPTIONS: CabangOption[] = [
+  { value: "semua", label: "Semua Cabang" },
+];

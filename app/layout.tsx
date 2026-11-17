@@ -6,6 +6,7 @@ import Navbar from "../components/common/Navbar";
 import StoreProvider from "../redux/StoreProvider";
 import { LoadingProvider } from "../context/LoadingContext";
 import GlobalLoader from "../components/common/GlobalLoader";
+import AuthGuard from "@/components/common/AuthGuard";
 
 const InterFont = Inter({
   variable: "--font-inter",
@@ -26,14 +27,16 @@ export default function RootLayout({
       <body className={`${InterFont.variable} antialiased`}>
         <StoreProvider>
           <LoadingProvider>
-            <GlobalLoader />
-            <div className="bg-white pb-8">
-              <Navbar></Navbar>
-            </div>
-            <main>{children}</main>
-            <div className="bg-white">
-              <FooterSection />
-            </div>
+            <AuthGuard>
+              <GlobalLoader />
+              <div className="bg-white pb-8">
+                <Navbar></Navbar>
+              </div>
+              <main>{children}</main>
+              <div className="bg-white">
+                <FooterSection />
+              </div>
+            </AuthGuard>
           </LoadingProvider>
         </StoreProvider>
       </body>

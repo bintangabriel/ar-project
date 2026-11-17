@@ -6,17 +6,21 @@ import { getNavbarData, getProfile } from '../../config/data';
 import { useAppDispatch, useAppSelector, useUserData } from '../../redux/store';
 import Link from 'next/link';
 import { logout } from '../../redux/UserSlice';
+import { useRouter } from 'next/navigation';
+
 const Navbar: React.FC = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
     const user = useUserData()?.user;
     const dispatch = useAppDispatch();
     const isAuthenticated = useAppSelector((state) => state.user.isAuthenticated);
+    const router = useRouter();
 
     const handleLogout = async () => {
         localStorage.clear();
         sessionStorage.clear();
         document.cookie = "token=; Max-Age=0; path=/;";
         dispatch(logout());
+        router.replace('/login');
     };
 
     const navbarData = getNavbarData(isAuthenticated);
