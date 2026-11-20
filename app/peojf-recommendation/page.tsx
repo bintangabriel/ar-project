@@ -77,10 +77,10 @@ export default function RecommendationPage() {
   const labelCls = "flex flex-col gap-1.5 text-[13px] font-semibold";
 
   return (
-    <main className="px-4 pb-16 pt-6">
+    <main className="min-h-screen w-full bg-slate-50 px-4 pb-16 pt-6 text-slate-900">
       <div className="mx-auto max-w-4xl mt-10">
         <h1 className="text-2xl font-bold">{TEXT.title}</h1>
-        <p className="mt-1 text-slate-500 dark:text-slate-400">{TEXT.intro}</p>
+        <p className="mt-1">{TEXT.intro}</p>
 
         <form className="mb-2 mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" onSubmit={onSubmit}>
           {SELECTS.map(({ key, label }) => (

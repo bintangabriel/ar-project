@@ -99,15 +99,7 @@ export const getProfile = (
       ),
       children: [
         {
-          label: (
-            <Link href="/profile" prefetch={false}>
-              Profile
-            </Link>
-          ),
-          key: "profile",
-        },
-        {
-          label: <div onClick={handleLogout}>Logout</div>, // ✅ logout handler
+          label: <div onClick={handleLogout}>Logout</div>,
           key: "logout",
         },
       ],

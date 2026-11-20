@@ -34,7 +34,7 @@ export default function RootLayout({
               </div>
               <main>{children}</main>
               <div className="bg-white">
-                <FooterSection />
+                {/* <FooterSection /> */}
               </div>
             </AuthGuard>
           </LoadingProvider>

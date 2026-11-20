@@ -51,12 +51,12 @@ export default function AuthLayout({
                 <br />
                  <span className="text-[#AEC4D4]">ARISE</span><br />
               </h1>
-              <p className="text-[#D6E2EB] text-sm leading-relaxed max-w-xs">
+              <p className="text-[#D6E2EB] text-sm leading-relaxed max-w-xs invisible">
                 Kelola proyek AR Anda dengan lebih terstruktur, transparan, dan efisien dalam satu platform.
               </p>
             </div>
 
-            <ul className="space-y-3">
+            <ul className="space-y-3 invisible">
               {highlights.map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm text-white/90">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#AEC4D4]">

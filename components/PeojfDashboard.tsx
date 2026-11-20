@@ -181,7 +181,7 @@ export default function PeojfDashboard({
   );
 
   return (
-    <section className="w-full bg-slate-50 mt-5 p-4 sm:p-6 lg:p-8">
+    <section className="w-full min-h-screen bg-slate-50 p-4 sm:p-6 lg:p-8 mt-5">
       {/* Filters */}
       <div className="mb-4 flex flex-wrap items-center gap-2">
         <span className="text-sm font-semibold text-slate-700">Periode</span>
