@@ -12,7 +12,7 @@ import {
 const INITIAL_FILTERS: DashboardFilters = {
   thisMonth: "2026-10-28",
   lastMonth: "2026-09-28",
-  cabang: "", // first option of cabangOptions; "" / "all" = no filter
+  late: "", // first option of cabangOptions; "" / "all" = no filter
 };
 
 export default function DashboardPage() {

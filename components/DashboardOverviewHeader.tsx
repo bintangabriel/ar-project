@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Calendar, ChevronDown, BarChart3, ClipboardList, PieChart } from "lucide-react";
-import { CabangOption, DEFAULT_CABANG_OPTIONS } from "@/config/data";
+import { CabangOption, DEFAULT_CABANG_OPTIONS, DEFAULT_LATE_OPTIONS } from "@/config/data";
 
 export interface DashboardOverviewHeaderProps {
   /** ISO date string, e.g. "2026-08-04" */
@@ -13,7 +13,7 @@ export interface DashboardOverviewHeaderProps {
   osaTotalTM: number;
   osaTotalLM: number;
   /** Called when the user clicks "Terapkan" with the current filter selection */
-  onApply?: (filters: { thisMonth: string; lastMonth: string; cabang: string }) => void;
+  onApply?: (filters: { thisMonth: string; lastMonth: string; late: string }) => void;
 }
 
 
@@ -37,21 +37,21 @@ function toDisplayDate(iso: string) {
 export default function DashboardOverviewHeader({
   initialThisMonth = "2026-08-04",
   initialLastMonth = "2026-07-04",
-  cabangOptions = DEFAULT_CABANG_OPTIONS,
+  cabangOptions = DEFAULT_LATE_OPTIONS,
   osaTotalTM,
   osaTotalLM,
   onApply,
 }: DashboardOverviewHeaderProps) {
   const [thisMonth, setThisMonth] = useState(initialThisMonth);
   const [lastMonth, setLastMonth] = useState(initialLastMonth);
-  const [cabang, setCabang] = useState(cabangOptions[0]?.value ?? "");
+  const [late, setLate] = useState(cabangOptions[0]?.value ?? "");
 
   const diff = osaTotalTM - osaTotalLM;
   const pctDiff = osaTotalLM !== 0 ? (diff / osaTotalLM) * 100 : 0;
   const isDown = diff < 0;
 
   const handleApply = () => {
-    onApply?.({ thisMonth, lastMonth, cabang });
+    onApply?.({ thisMonth, lastMonth, late });
   };
 
   return (
@@ -98,14 +98,14 @@ export default function DashboardOverviewHeader({
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="cabang" className="text-xs font-medium text-slate-500">
-              Filter by Cabang
+            <label htmlFor="late" className="text-xs font-medium text-slate-500">
+              Filter by Late
             </label>
             <div className="relative">
               <select
-                id="cabang"
-                value={cabang}
-                onChange={(e) => setCabang(e.target.value)}
+                id="late"
+                value={late}
+                onChange={(e) => setLate(e.target.value)}
                 className="w-44 appearance-none rounded-lg border-2 border-blue-500 bg-white py-2 pl-3 pr-9 text-sm text-slate-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {cabangOptions.map((opt) => (

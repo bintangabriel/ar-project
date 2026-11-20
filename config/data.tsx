@@ -171,3 +171,11 @@ export const DEFAULT_CABANG_OPTIONS: CabangOption[] = [
   { value: "PALEMBANG", label: "PALEMBANG" },
   { value: "RANTAU PRAPAT", label: "RANTAU PRAPAT" },
 ];
+
+export const DEFAULT_LATE_OPTIONS: CabangOption[] = [
+  { value: "all", label: "Semua Late" },
+  { value: "LATE 1.A", label: "LATE 1.A" },
+  { value: "LATE 1.B", label: "LATE 1.B" },
+  { value: "LATE 1.C", label: "LATE 1.C" },
+  { value: "LATE 1.D", label: "LATE 1.D" }
+];

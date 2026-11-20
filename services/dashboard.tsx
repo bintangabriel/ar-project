@@ -10,7 +10,7 @@ export interface DashboardOverview {
 export interface DashboardFilters {
   thisMonth: string; // yyyy-mm-dd
   lastMonth: string; // yyyy-mm-dd
-  cabang: string;
+  late: string;
 }
 
 export const fetchDashboardOverview = (
@@ -20,7 +20,7 @@ export const fetchDashboardOverview = (
   const qs = new URLSearchParams({
     tm: filters.thisMonth,
     lm: filters.lastMonth,
-    cabang: filters.cabang,
+    late: filters.late,
   });
 
   // fetchClient prepends API_CONFIG.BASE_URL, adds the headers, and handles
