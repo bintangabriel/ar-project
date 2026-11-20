@@ -156,5 +156,18 @@ export const features = [
 ];
 
 export const DEFAULT_CABANG_OPTIONS: CabangOption[] = [
-  { value: "semua", label: "Semua Cabang" },
+  { value: "all", label: "Semua Cabang" },
+  { value: "BATAM", label: "BATAM" },
+  { value: "MEDAN 2", label: "MEDAN 2" },
+  { value: "DURI", label: "DURI" },
+  { value: "BANDA ACEH", label: "BANDA ACEH" },
+  { value: "SERANG", label: "SERANG" },
+  { value: "PADANG", label: "PADANG" },
+  { value: "JAMBI", label: "JAMBI" },
+  { value: "BENGKULU", label: "BENGKULU" },
+  { value: "PANGKAL PINANG", label: "PANGKAL PINANG" },
+  { value: "LAMPUNG", label: "LAMPUNG" },
+  { value: "MEDAN", label: "MEDAN" },
+  { value: "PALEMBANG", label: "PALEMBANG" },
+  { value: "RANTAU PRAPAT", label: "RANTAU PRAPAT" },
 ];
